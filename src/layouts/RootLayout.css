@@ -1,0 +1,16 @@
+nav {
+  margin-bottom: 40px;
+}
+
+nav a {
+  margin: 10px;
+  font-size: 30px;
+  text-decoration: none;
+}
+nav a.active {
+  color: red;
+}
+
+nav a:hover {
+  cursor: pointer;
+}
