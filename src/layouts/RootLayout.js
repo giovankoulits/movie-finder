@@ -4,7 +4,7 @@ import { NavLink, Outlet } from 'react-router-dom';
 const RootLayout = () => {
   return (
     <div className='App'>
-      <div className='container'>
+      <div className='container pb-5'>
         <header>
           <nav>
             <h1>IMDB Movies</h1>

@@ -1,0 +1,91 @@
+.my-card {
+  display: flex;
+  align-items: end;
+  width: 220px;
+  height: 300px;
+  position: relative;
+  border-radius: 0.8rem;
+  overflow: hidden;
+  box-shadow: 0 1rem 2rem -0.5rem transparent;
+  transition-property: box-shadow, transform, outline-color, filter;
+  transition-duration: 200ms;
+  outline: 0.2rem solid transparent;
+}
+.my-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+}
+
+.my-card .my-info {
+  opacity: 0;
+  visibility: hidden;
+  transition-property: opacity, visibility;
+  transition-duration: 200ms;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  position: absolute;
+  width: 100%;
+  left: 0;
+  bottom: 0;
+  color: #fff;
+  height: 60%;
+  background: linear-gradient(to bottom, transparent, #121214 85%);
+}
+.my-card .my-info .my-title,
+.my-card .my-info #my-description,
+.my-card .my-info .my-link {
+  padding-inline: 18px;
+}
+.my-card .my-info .my-title {
+  font-size: 18px;
+  padding-bottom: 0.4rem;
+  font-weight: 700;
+}
+.my-card .my-info #my-description {
+  text-align: justify;
+}
+.my-card .my-info .my-link {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding-block: 1.2rem;
+  background: #121214;
+  color: inherit;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.2rem;
+  font-weight: 600;
+  font-size: 12px;
+}
+.my-card .my-info .my-link i {
+  font-size: 18px;
+}
+.my-card:hover,
+.my-card:focus,
+.my-card:focus-within {
+  box-shadow: 0 1rem 2rem -0.5rem rgba(0, 0, 0, 0.8);
+  transform: scale(1.1);
+  z-index: 100;
+  filter: grayscale(50%);
+  outline-color: #e1e1e1;
+  outline-color: #f5c518;
+}
+.my-card:hover .my-info,
+.my-card:focus .my-info,
+.my-card:focus-within .my-info {
+  opacity: 1;
+  visibility: visible;
+}
+
+.delete-btn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+}
+
+.delete-btn:hover {
+  cursor: pointer;
+}

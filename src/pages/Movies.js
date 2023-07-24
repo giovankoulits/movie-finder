@@ -1,8 +1,16 @@
 import Card from '../components/Card/Card';
 import { useState, useEffect } from 'react';
-
+import SearchForm from '../components/Search/SearchForm';
+import { useLocation } from 'react-router-dom';
 const Movies = ({ list }) => {
   const [moviesList, setMoviesList] = useState('');
+  const [formData, setFormData] = useState('');
+  const [number, setNumber] = useState(1);
+
+  //Logic
+  function submitForm(data) {
+    setFormData(data);
+  }
 
   async function getMovies(url) {
     const moviesURL = await fetch(url);
@@ -10,31 +18,42 @@ const Movies = ({ list }) => {
     setMoviesList(list);
   }
 
-  function setFavorites(movie) {
+  function setFavorite(movie) {
     let favoritesArray;
+
     if (!localStorage.getItem('movies')) {
-      favoritesArray = [];
-      favoritesArray.push(movie);
+      favoritesArray = [movie];
       localStorage.setItem('movies', JSON.stringify(favoritesArray));
     }
     favoritesArray = JSON.parse(localStorage.getItem('movies'));
+
+    if (favoritesArray.some((fav) => fav.imdbID === movie.imdbID)) {
+      return;
+    }
+
     favoritesArray.push(movie);
     localStorage.setItem('movies', JSON.stringify(favoritesArray));
   }
 
   useEffect(() => {
-    getMovies(`http://www.omdbapi.com/?s=star wars&apikey=40f50920`);
-  }, []);
+    getMovies(
+      `http://www.omdbapi.com/?s=${formData.title}&y=${formData.year}&type=${formData.type}&apikey=40f50920`
+    );
+  }, [formData]);
 
   return (
-    <div className='row gy-5 gx-5'>
-      {moviesList &&
-        moviesList.Search.map((movie, i) => (
-          <div className='col-lg-4 col-sm-6 col-xl-3'>
-            <Card handleFavorites={setFavorites} movie={movie} index={i} />
-          </div>
-        ))}
-    </div>
+    <>
+      <div className='row gy-2 gx-2'>
+        <SearchForm handleSubmit={submitForm} />
+      </div>
+      <div className='row gy-2 gx-2 d-flex flex-wrap d-row justify-content-between'>
+        {moviesList.Search &&
+          moviesList.Search.map((movie, i) => (
+            //<div className='col-sm-6 col-xl-2'>
+            <Card key={i} addFavorite={setFavorite} movie={movie} index={i} />
+          ))}
+      </div>
+    </>
   );
 };
 

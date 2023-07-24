@@ -10,10 +10,11 @@ import {
 import Movies from './pages/Movies';
 import Favorites from './pages/Favorites';
 import Movie from './pages/Movie';
+import RootLayout from './layouts/RootLayout';
+
 //styles
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import RootLayout from './layouts/RootLayout';
 
 const router = createBrowserRouter(
   createRoutesFromElements(
