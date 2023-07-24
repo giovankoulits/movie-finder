@@ -1,9 +1,14 @@
+::selection {
+  background-color: #f5c518;
+}
+
 .form-label {
   color: white !important;
 }
 
 form {
   margin-bottom: 5vh;
+  width: 50% !important;
 }
 
 form input {
@@ -13,4 +18,26 @@ form input {
 
 #form-button {
   background-color: #f5c518;
+  border-radius: 0px;
+  font-weight: bold;
+  color: white;
+}
+
+.form-control {
+  border-radius: 0px !important;
+  font-weight: bold;
+}
+
+.form-control:focus {
+  border: 1px solid #f5c518;
+  outline: none !important;
+}
+.form-select {
+  border-radius: 0px !important;
+}
+
+@media only screen and (max-width: 768px) {
+  form {
+    width: 100% !important;
+  }
 }

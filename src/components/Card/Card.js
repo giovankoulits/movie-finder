@@ -1,36 +1,44 @@
-import React from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Card.css';
-import heart from '../../assets/heart.png';
+import heartSolid from '../../assets/heart-solid.png';
 import bin from '../../assets/bin.png';
+import readMore from '../../assets/read-more.png';
+import unavailable from '../../assets/unavailable.png';
 
 const Card = ({ movie, index, addFavorite, deleteFavorite }) => {
   const button = addFavorite ? (
-    <button onClick={() => addFavorite(movie)}>
-      <img style={{ width: '12px' }} src={heart} alt='heart-icon' />
-    </button>
+    <div
+      onClick={() => {
+        addFavorite(movie);
+      }}
+      className='heart-btn'
+    >
+      <img style={{ width: '22px' }} src={heartSolid} alt='heart-icon' />
+    </div>
   ) : (
     <div onClick={() => deleteFavorite(movie.imdbID)} className='delete-btn'>
       <img style={{ width: '22px' }} src={bin} alt='bin-icon' />
     </div>
   );
+  const poster = movie.Poster === 'N/A' ? unavailable : movie.Poster;
 
   return (
-    <div
-      key={index + Math.random().toString()}
-      className='col-xl-2 my-4 mx-2 col-md-3 px-2'
-    >
-      <div class='my-card' tabindex='0'>
-        {button}
-
-        <img src={movie.Poster} alt={movie.Title} draggable='false' />
+    <div className='col-md-12 col-lg-3 d-flex justify-content-center col-xl-2 m-3'>
+      <div className='my-card' tabIndex='0'>
+        <img src={poster} alt={movie.Title} draggable='false' />
         <div className='my-info'>
+          {button}
           <h3 className='my-title text-start'>{movie.Title}</h3>
-          <p style={{ color: 'white' }} id='my-description'>
+          <h6
+            style={{ color: 'white', fontWeight: 'bold' }}
+            id='my-description'
+          >
             {movie.Year}
-          </p>
+          </h6>
           <Link to={`/${index}`} state={movie} className='my-link'>
-            Read more...
+            <img style={{ width: '20px' }} src={readMore} alt='link' /> Read
+            more...
           </Link>
         </div>
       </div>

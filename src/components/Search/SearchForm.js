@@ -12,9 +12,11 @@ const Search = ({ handleSubmit }) => {
         handleSubmit({ title, year, type });
       }}
       id='searchForm'
-      className=' d-flex flex-wrap p-2'
+      className='d-flex flex-wrap py-2'
     >
-      <div className=' pe-md-3 pb-3 col-sm-12 col-md-6 '>
+      <div className='col-9 text-start'>
+        <label className='fw-bold mb-1 text-light'>Movie Title</label>
+
         <input
           type='text'
           className='form-control'
@@ -23,18 +25,27 @@ const Search = ({ handleSubmit }) => {
           onChange={(e) => setTitle(e.target.value)}
         />
       </div>
+      <div className='col-3'>
+        <label style={{ color: '#121212' }} className='fw-bold mb-1'>
+          l
+        </label>
 
-      <div className=' pe-3 mb-3 col-sm-12 col-md-6 col-lg-2'>
+        <button id='form-button' type='submit' className='btn w-100'>
+          Search
+        </button>
+      </div>
+      <div className='col-6 my-4 pe-2 text-start'>
+        <label className='fw-bold mb-1 text-light'>Relaese Year</label>
         <input
           type='text'
           className='form-control'
-          placeholder='Year'
           value={year}
           onChange={(e) => setYear(e.target.value)}
         />
       </div>
 
-      <div className=' mb-3 pe-3 col-sm-12 col-md-6 col-lg-2'>
+      <div className='col-6 my-4 ps-2 text-start'>
+        <label className='fw-bold mb-1 text-light '>Type</label>
         <select
           onChange={(e) => {
             setType(e.target.value);
@@ -46,11 +57,6 @@ const Search = ({ handleSubmit }) => {
           <option value='series'>Series</option>
           <option value='episode'>Episode</option>
         </select>
-      </div>
-      <div className='pb-3 col-sm-12 col-md-6 col-lg-2 d-flex justify-content-end align-items-end'>
-        <button id='form-button' type='submit' className=' btn w-100'>
-          Search
-        </button>
       </div>
     </form>
   );

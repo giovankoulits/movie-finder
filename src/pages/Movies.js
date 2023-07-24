@@ -36,17 +36,18 @@ const Movies = ({ list }) => {
   }
 
   useEffect(() => {
-    getMovies(
-      `http://www.omdbapi.com/?s=${formData.title}&y=${formData.year}&type=${formData.type}&apikey=40f50920`
-    );
+    if (formData)
+      getMovies(
+        `http://www.omdbapi.com/?s=${formData.title}&y=${formData.year}&type=${formData.type}&apikey=40f50920`
+      );
   }, [formData]);
 
   return (
     <>
-      <div className='row gy-2 gx-2'>
+      <div className='row d-flex gy-2 gx-2 justify-content-center'>
         <SearchForm handleSubmit={submitForm} />
       </div>
-      <div className='row gy-2 gx-2 d-flex flex-wrap d-row justify-content-between'>
+      <div className='row gy-2 gx-2 d-flex flex-wrap justify-content-center'>
         {moviesList.Search &&
           moviesList.Search.map((movie, i) => (
             //<div className='col-sm-6 col-xl-2'>
