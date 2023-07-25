@@ -1,14 +1,24 @@
-.movie-text {
-  font-size: 14px;
-}
-
 .movie-card {
   width: 300px;
   height: 450px;
 }
+
+.movie-page-body h2 {
+  color: var(--text);
+}
+
+.movie-page-body span {
+  color: var(--gold);
+}
+.movie-page-body p {
+  color: var(--text);
+  font-size: (--textSize);
+}
+
 .movie-card img {
   object-fit: cover;
   width: 100%;
   height: 100%;
-  border-radius: 5px;
+  border-radius: 10px;
+  border: var(--border);
 }

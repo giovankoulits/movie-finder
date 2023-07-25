@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import './Card.css';
 import heartSolid from '../../assets/heart-solid.png';
@@ -21,6 +20,7 @@ const Card = ({ movie, index, addFavorite, deleteFavorite }) => {
       <img style={{ width: '22px' }} src={bin} alt='bin-icon' />
     </div>
   );
+
   const poster = movie.Poster === 'N/A' ? unavailable : movie.Poster;
 
   return (

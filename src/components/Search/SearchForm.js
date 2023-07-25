@@ -10,6 +10,8 @@ const Search = ({ handleSubmit }) => {
       onSubmit={(e) => {
         e.preventDefault();
         handleSubmit({ title, year, type });
+        /*       setTitle('');
+        setYear(''); */
       }}
       id='searchForm'
       className='d-flex flex-wrap py-2'

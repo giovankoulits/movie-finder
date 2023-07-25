@@ -2,9 +2,10 @@ import { useParams, useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
 import './Movie.css';
 
-const Movie = ({ pic, heading, details }) => {
+const Movie = () => {
   const [data, setData] = useState('');
 
+  //Fetch according to Movie ID
   useEffect(() => {
     fetch(
       `http://www.omdbapi.com/?i=${location.state.imdbID}&plot=full&apikey=40f50920`
@@ -23,37 +24,29 @@ const Movie = ({ pic, heading, details }) => {
             <img src={data.Poster} className='card-img-top ' alt={data.Title} />
           </div>
         </div>
-        <div className='col-12 col-sm-10 col-md-8 col-lg-4 flex-wrap d-flex flex-column justify-content-lg-start'>
+        <div className='movie-page-body col-12 col-sm-10 col-md-8 col-lg-4 flex-wrap d-flex flex-column justify-content-lg-start'>
           <div className='w-100'>
+            <h2 className='text-start mb-5'>{data.Title}</h2>
             <h4 className='text-start text-light'>
-              <span style={{ color: '#f5c518' }}>|</span> Plot
+              <span>|</span> Plot
             </h4>
-            <p
-              style={{ textAlign: 'justify' }}
-              className='movie-text text-light mb-3'
-            >
+            <p style={{ textAlign: 'justify' }} className='mb-4'>
               {data.Plot}
             </p>
           </div>
           <div>
             <h4 className='text-start text-light'>
-              <span style={{ color: '#f5c518' }}>|</span> Cast
+              <span>|</span> Cast
             </h4>
-            <p
-              style={{ textAlign: 'justify' }}
-              className='movie-text text-light'
-            >
+            <p style={{ textAlign: 'justify' }} className='text-light mb-4'>
               {data.Actors}
             </p>
           </div>
           <div>
             <h4 className='text-start text-light'>
-              <span style={{ color: '#f5c518' }}>|</span> Rating
+              <span>|</span> Rating
             </h4>
-            <p
-              style={{ textAlign: 'justify' }}
-              className='movie-text text-light'
-            >
+            <p style={{ textAlign: 'justify' }} className='text-light mb-4'>
               {data.Ratings[0].Value}
             </p>
           </div>

@@ -1,11 +1,19 @@
-body {
-  margin: 0;
-  font-family: 'Prompt', sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+:root {
+  --bg: #121212;
+  --gold: #f5c518;
+  --text: #f3f0f0;
+  --textSize: 10px;
+  --border: 3px solid #ddc46d;
 }
 
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  font-family: 'Poppins', sans-serif;
+}
+
+::selection {
+  background-color: var(--gold);
 }

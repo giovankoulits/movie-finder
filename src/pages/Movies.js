@@ -1,32 +1,47 @@
 import Card from '../components/Card/Card';
 import { useState, useEffect } from 'react';
 import SearchForm from '../components/Search/SearchForm';
-import { useLocation } from 'react-router-dom';
-const Movies = ({ list }) => {
-  const [moviesList, setMoviesList] = useState('');
+
+const Movies = () => {
+  //State
   const [formData, setFormData] = useState('');
-  const [number, setNumber] = useState(1);
+  const [movies, setMovies] = useState('');
 
   //Logic
   function submitForm(data) {
+    if (!data.title.length) {
+      alert('please provide a movie title');
+      return;
+    }
+    localStorage.setItem('search', JSON.stringify(data));
     setFormData(data);
   }
 
   async function getMovies(url) {
     const moviesURL = await fetch(url);
-    const list = await moviesURL.json();
-    setMoviesList(list);
+    const res = await moviesURL.json();
+
+    //Search is returned by  successful requests
+    if (res.Search) {
+      setMovies(res.Search);
+      return;
+    }
+    if (res.Error && formData.title?.length) {
+      alert(
+        'We could not find what you asked for. Please try a search with different parameters'
+      );
+    }
   }
 
-  function setFavorite(movie) {
+  function addFavorite(movie) {
     let favoritesArray;
-
     if (!localStorage.getItem('movies')) {
       favoritesArray = [movie];
       localStorage.setItem('movies', JSON.stringify(favoritesArray));
     }
     favoritesArray = JSON.parse(localStorage.getItem('movies'));
 
+    //Prevent duplicates in favorites
     if (favoritesArray.some((fav) => fav.imdbID === movie.imdbID)) {
       return;
     }
@@ -35,10 +50,12 @@ const Movies = ({ list }) => {
     localStorage.setItem('movies', JSON.stringify(favoritesArray));
   }
 
+  //Fetch according to search
   useEffect(() => {
-    if (formData)
+    let storage = JSON.parse(localStorage.getItem('search'));
+    if (storage)
       getMovies(
-        `http://www.omdbapi.com/?s=${formData.title}&y=${formData.year}&type=${formData.type}&apikey=40f50920`
+        `http://www.omdbapi.com/?s=${storage.title}&y=${storage.year}&type=${storage.type}&page=2&apikey=40f50920`
       );
   }, [formData]);
 
@@ -48,10 +65,9 @@ const Movies = ({ list }) => {
         <SearchForm handleSubmit={submitForm} />
       </div>
       <div className='row gy-2 gx-2 d-flex flex-wrap justify-content-center'>
-        {moviesList.Search &&
-          moviesList.Search.map((movie, i) => (
-            //<div className='col-sm-6 col-xl-2'>
-            <Card key={i} addFavorite={setFavorite} movie={movie} index={i} />
+        {movies &&
+          movies.map((movie, i) => (
+            <Card key={i} addFavorite={addFavorite} movie={movie} index={i} />
           ))}
       </div>
     </>

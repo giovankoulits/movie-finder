@@ -1,4 +1,3 @@
-//Router
 import {
   createBrowserRouter,
   createRoutesFromElements,
@@ -16,6 +15,7 @@ import RootLayout from './layouts/RootLayout';
 import './App.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
+//Router
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<RootLayout />}>
