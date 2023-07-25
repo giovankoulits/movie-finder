@@ -4,7 +4,7 @@
 
 form {
   margin-bottom: 5vh;
-  width: 50% !important;
+  width: 93% !important;
 }
 
 form input {
@@ -13,9 +13,12 @@ form input {
 }
 
 #form-button {
-  background-color: #f5c518;
+  background-color: var(--gold);
   border-radius: 0px;
-  color: white;
+  color: var(--bg);
+  font-family: 'Bubblegum Sans', cursive;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 
 .form-control {
@@ -23,11 +26,17 @@ form input {
 }
 
 .form-control:focus {
-  border: 1px solid #f5c518;
+  border: 1px solid var(--gold);
   outline: none !important;
 }
 .form-select {
   border-radius: 0px !important;
+}
+
+@media only screen and (max-width: 1200px) {
+  form {
+    width: 75% !important;
+  }
 }
 
 @media only screen and (max-width: 768px) {

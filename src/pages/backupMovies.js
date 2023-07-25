@@ -6,8 +6,8 @@ const Movies = () => {
   //State
   const [formData, setFormData] = useState('');
   const [movies, setMovies] = useState([]);
-  const [numOfPages, setNumOfPages] = useState(5);
-  const [currentPage, setCurrentPage] = useState(1);
+  const [pages, setPages] = useState(0);
+  const [currentPage, setCurrentPage] = useState(0);
 
   //Logic
   function submitForm(data) {
@@ -15,6 +15,8 @@ const Movies = () => {
       alert('please provide a movie title');
       return;
     }
+    //Get movies from storage on rerender
+    localStorage.setItem('search', JSON.stringify(data));
     setFormData(data);
   }
 
@@ -23,15 +25,13 @@ const Movies = () => {
     const res = await moviesURL.json();
     //Search is returned by  successful requests
     if (res.Search) {
-      setNumOfPages(Math.ceil(parseInt(res.totalResults) / 10));
-      console.log(res.totalResults);
-      if (currentPage < numOfPages) {
-        setMovies((prev) => [...prev, ...res.Search]);
-        return;
-      }
+      let numOfPages = Math.ceil(parseInt(res.totalResults) / 10);
+      setPages(numOfPages);
+      setMovies((prev) => [...prev, ...res.Search]);
+      //
+      //
       return;
     }
-    //
     if (res.Error && formData.title?.length) {
       alert(
         'We could not find what you asked for. Please try a search with different parameters'
@@ -56,11 +56,12 @@ const Movies = () => {
 
   //Fetch according to search
   useEffect(() => {
-    if (currentPage < numOfPages)
+    let storage = JSON.parse(localStorage.getItem('search'));
+    if (storage)
       getMovies(
-        `http://www.omdbapi.com/?s=${formData.title}&y=${formData.year}&type=${formData.type}&page=${currentPage}&apikey=40f50920`
+        `http://www.omdbapi.com/?s=${storage.title}&y=${storage.year}&type=${storage.type}&apikey=40f50920`
       );
-  }, [formData, currentPage]);
+  }, [formData]);
 
   function handleScroll() {
     if (
@@ -68,15 +69,22 @@ const Movies = () => {
       document.documentElement.scrollHeight
     ) {
       setCurrentPage((prev) => prev + 1);
+      let storage = JSON.parse(localStorage.getItem('search'));
+      getMovies(
+        `http://www.omdbapi.com/?s=${storage.title}&y=${storage.year}&type=${
+          storage.type
+        }&page=${currentPage + 1}&apikey=40f50920`
+      );
     }
   }
 
   //Listen for Scroll
-  useEffect(() => {
+  /*   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  }, []); */
 
+  console.log(currentPage);
   return (
     <>
       <div className='row d-flex justify-content-center'>

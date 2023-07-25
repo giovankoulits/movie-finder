@@ -6,13 +6,11 @@ const RootLayout = () => {
     <div className='App'>
       <div className='container-xl py-5 px-3 px-lg-0'>
         <header>
-          <h1 style={{ color: 'var(--gold)' }} className='mb-5'>
-            Movie FInder
-          </h1>
           <nav>
             <NavLink to='/'>Home</NavLink>
             <NavLink to='/favorites'>Favorites</NavLink>
           </nav>
+          <h1 className='mb-4'>Movie FInder</h1>
         </header>
         <main>
           <Outlet />

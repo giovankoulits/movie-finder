@@ -1,10 +1,17 @@
+.App h1 {
+  color: var(--gold);
+  font-family: 'Bubblegum Sans', cursive;
+  font-size: 50px;
+  text-transform: uppercase;
+}
+
 nav {
   margin-bottom: 40px;
 }
 
 nav a {
   margin: 10px;
-  font-size: 24px;
+  font-size: 20px;
   text-decoration: none;
   color: white;
 }
@@ -16,7 +23,7 @@ nav a:hover {
 
 nav a.active {
   background-color: #f5c518;
-  padding: 10px 20px;
+  padding: 7px 14px;
   border-radius: 5px;
   font-weight: bold;
   color: white;

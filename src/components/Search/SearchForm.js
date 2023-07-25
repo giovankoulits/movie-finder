@@ -5,49 +5,29 @@ const Search = ({ handleSubmit }) => {
   const [year, setYear] = useState('');
   const [type, setType] = useState('movie');
 
+  //logic
+
   return (
     <form
       onSubmit={(e) => {
         e.preventDefault();
         handleSubmit({ title, year, type });
-        /*       setTitle('');
-        setYear(''); */
       }}
       id='searchForm'
-      className='d-flex flex-wrap py-2'
+      className='d-flex flex-wrap '
     >
-      <div className='col-9 text-start'>
-        <label className='fw-bold mb-1 text-light'>Movie Title</label>
-
+      <div className='col-6 col-xl-3 my-4 my-xl-0 pe-3 text-start'>
         <input
           type='text'
           className='form-control'
-          placeholder='Search Title'
-          value={title}
-          onChange={(e) => setTitle(e.target.value)}
-        />
-      </div>
-      <div className='col-3'>
-        <label style={{ color: '#121212' }} className='fw-bold mb-1'>
-          l
-        </label>
-
-        <button id='form-button' type='submit' className='btn w-100'>
-          Search
-        </button>
-      </div>
-      <div className='col-6 my-4 pe-2 text-start'>
-        <label className='fw-bold mb-1 text-light'>Relaese Year</label>
-        <input
-          type='text'
-          className='form-control'
+          placeholder='Year of release'
           value={year}
           onChange={(e) => setYear(e.target.value)}
         />
       </div>
 
-      <div className='col-6 my-4 ps-2 text-start'>
-        <label className='fw-bold mb-1 text-light '>Type</label>
+      <div className='col-6 col-xl-3 my-4 my-xl-0 pe-xl-3 text-start'>
+        {/*  <label className='fw-bold mb-1 text-light '>Type</label> */}
         <select
           onChange={(e) => {
             setType(e.target.value);
@@ -59,6 +39,20 @@ const Search = ({ handleSubmit }) => {
           <option value='series'>Series</option>
           <option value='episode'>Episode</option>
         </select>
+      </div>
+      <div className='col-9 col-xl-4 text-start ps-xl-5'>
+        <input
+          type='text'
+          className='form-control'
+          placeholder='Search Title'
+          value={title}
+          onChange={(e) => setTitle(e.target.value)}
+        />
+      </div>
+      <div className='col-3 col-xl-2 '>
+        <button id='form-button' type='submit' className='btn w-100'>
+          Search
+        </button>
       </div>
     </form>
   );
