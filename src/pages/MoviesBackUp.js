@@ -1,13 +1,20 @@
+//Components
 import Card from '../components/Card/Card';
-import { useState, useEffect } from 'react';
+import Spinner from '../components/Spinner/Spinner';
 import SearchForm from '../components/Search/SearchForm';
+import { nanoid } from 'nanoid';
+//Hooks
+import { useState, useEffect } from 'react';
+//Styles
+import './Movies.css';
 
 const Movies = () => {
   //State
   const [formData, setFormData] = useState('');
   const [movies, setMovies] = useState([]);
-  const [pages, setPages] = useState(0);
-  const [currentPage, setCurrentPage] = useState(0);
+  const [numOfPages, setNumOfPages] = useState(2);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   //Logic
   function submitForm(data) {
@@ -15,8 +22,11 @@ const Movies = () => {
       alert('please provide a movie title');
       return;
     }
-    //Get movies from storage on rerender
-    localStorage.setItem('search', JSON.stringify(data));
+    //Reset states in case of new search
+    setMovies([]);
+    setCurrentPage(1);
+    setNumOfPages(2);
+    //send new form request
     setFormData(data);
   }
 
@@ -24,14 +34,16 @@ const Movies = () => {
     const moviesURL = await fetch(url);
     const res = await moviesURL.json();
     //Search is returned by  successful requests
+
     if (res.Search) {
-      let numOfPages = Math.ceil(parseInt(res.totalResults) / 10);
-      setPages(numOfPages);
-      setMovies((prev) => [...prev, ...res.Search]);
-      //
-      //
+      setNumOfPages(Math.ceil(parseInt(res.totalResults) / 10));
+      if (currentPage <= numOfPages) {
+        setMovies((prev) => [...prev, ...res.Search]);
+        return;
+      }
       return;
     }
+    //
     if (res.Error && formData.title?.length) {
       alert(
         'We could not find what you asked for. Please try a search with different parameters'
@@ -41,6 +53,7 @@ const Movies = () => {
 
   function addFavorite(movie) {
     let favoritesArray;
+    //Create storage if none exists
     if (!localStorage.getItem('movies')) {
       favoritesArray = [movie];
       localStorage.setItem('movies', JSON.stringify(favoritesArray));
@@ -51,40 +64,35 @@ const Movies = () => {
       return;
     }
     favoritesArray.push(movie);
+    //Save favoriters to local storage
     localStorage.setItem('movies', JSON.stringify(favoritesArray));
   }
 
-  //Fetch according to search
-  useEffect(() => {
-    let storage = JSON.parse(localStorage.getItem('search'));
-    if (storage)
-      getMovies(
-        `http://www.omdbapi.com/?s=${storage.title}&y=${storage.year}&type=${storage.type}&apikey=40f50920`
-      );
-  }, [formData]);
-
+  //Lazy Load/infinite Scroll
   function handleScroll() {
-    if (
+    let scrollHeight =
       window.innerHeight + document.documentElement.scrollTop + 1 >=
-      document.documentElement.scrollHeight
-    ) {
+      document.documentElement.scrollHeight;
+    if (scrollHeight && currentPage < numOfPages) {
       setCurrentPage((prev) => prev + 1);
-      let storage = JSON.parse(localStorage.getItem('search'));
-      getMovies(
-        `http://www.omdbapi.com/?s=${storage.title}&y=${storage.year}&type=${
-          storage.type
-        }&page=${currentPage + 1}&apikey=40f50920`
-      );
     }
   }
 
-  //Listen for Scroll
-  /*   useEffect(() => {
+  //Fetch by Search
+  useEffect(() => {
+    if (currentPage < numOfPages)
+      getMovies(
+        `http://www.omdbapi.com/?s=${formData.title}&y=${formData.year}&type=${formData.type}&page=${currentPage}&apikey=40f50920`
+      );
+    console.log(currentPage, numOfPages);
+  }, [formData, currentPage]);
+
+  //Listen for Scroll Event
+  useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
-  }, []); */
+  }, []);
 
-  console.log(currentPage);
   return (
     <>
       <div className='row d-flex justify-content-center'>
@@ -93,9 +101,15 @@ const Movies = () => {
       <div className='row gy-2 gx-2 d-flex flex-wrap justify-content-center'>
         {movies &&
           movies.map((movie, i) => (
-            <Card key={i} addFavorite={addFavorite} movie={movie} index={i} />
+            <Card
+              key={nanoid()}
+              addFavorite={addFavorite}
+              movie={movie}
+              index={i}
+            />
           ))}
       </div>
+      {loading && <Spinner />}
     </>
   );
 };

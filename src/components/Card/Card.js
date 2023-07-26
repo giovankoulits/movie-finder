@@ -1,7 +1,6 @@
 //Components
 import { Link } from 'react-router-dom';
 import Button from '../Button.js/Button';
-
 //Pics
 import readMore from '../../assets/read-more.png';
 import unavailable from '../../assets/unavailable.png';
@@ -13,7 +12,7 @@ const Card = ({ movie, index, addFavorite, deleteFavorite }) => {
   const poster = movie.Poster === 'N/A' ? unavailable : movie.Poster;
 
   return (
-    <div className='col-md-12 col-lg-3 d-flex justify-content-center col-xl-2 m-3'>
+    <div className='col-md-12 col-lg-4 d-flex justify-content-center col-xl-3 p-3'>
       <div className='my-card' tabIndex='0'>
         <img src={poster} alt={movie.Title} draggable='false' />
         <div className='my-info'>

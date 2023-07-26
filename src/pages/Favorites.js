@@ -1,9 +1,11 @@
 import Card from '../components/Card/Card';
 import { useState } from 'react';
+import { nanoid } from 'nanoid';
 
 const Favorites = () => {
   const storage = JSON.parse(localStorage.getItem('movies'));
   const [favorites, setFavorites] = useState(storage);
+
   function handleDelete(id) {
     let items = Array.from(favorites);
     let updatedMovieArray = items.filter((fav) => fav.imdbID !== id);
@@ -15,7 +17,12 @@ const Favorites = () => {
     <div className='row gy-2 gx-2 d-flex flex-wrap justify-content-center my-5'>
       {favorites &&
         favorites.map((movie, i) => (
-          <Card deleteFavorite={handleDelete} movie={movie} index={i} />
+          <Card
+            key={nanoid()}
+            deleteFavorite={handleDelete}
+            movie={movie}
+            index={i}
+          />
         ))}
     </div>
   );

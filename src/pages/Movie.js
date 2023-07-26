@@ -1,27 +1,37 @@
-import { useParams, useLocation } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { useState, useEffect } from 'react';
+import unavailable from '../assets/unavailable.png';
+import Spinner from '../components/Spinner/Spinner';
 import './Movie.css';
 
 const Movie = () => {
+  const location = useLocation();
   const [data, setData] = useState('');
-
+  const [loading, setLoading] = useState(true);
   //Fetch by ID
   useEffect(() => {
     fetch(
       `http://www.omdbapi.com/?i=${location.state.imdbID}&plot=full&apikey=40f50920`
     )
       .then((res) => res.json())
-      .then((movie) => setData(movie));
-  }, []);
+      .then((movie) => setData(movie))
+      .then((end) => setLoading(false));
+  }, [location]);
 
-  const { id } = useParams();
-  const location = useLocation();
-  return (
+  return loading ? (
+    <div className='row d-flex justify-content-center'>
+      <Spinner />
+    </div>
+  ) : (
     data && (
-      <div className='row d-flex '>
+      <div className='row d-flex'>
         <div className='col-12 col-md-4  col-lg-6 d-flex justify-content-center justify-content-lg-end'>
           <div className='movie-card mb-5'>
-            <img src={data.Poster} className='card-img-top ' alt={data.Title} />
+            <img
+              src={data.Poster === 'N/A' ? unavailable : data.Poster}
+              className='card-img-top '
+              alt={data.Title}
+            />
           </div>
         </div>
         <div className='movie-page-body col-12 col-sm-10 col-md-8 col-lg-4 flex-wrap d-flex flex-column justify-content-lg-start'>
@@ -39,7 +49,7 @@ const Movie = () => {
               <span>|</span> Cast
             </h4>
             <p style={{ textAlign: 'justify' }} className='text-light mb-4'>
-              {data.Actors}
+              {data?.Actors}
             </p>
           </div>
           <div>
@@ -47,7 +57,7 @@ const Movie = () => {
               <span>|</span> Rating
             </h4>
             <p style={{ textAlign: 'justify' }} className='text-light mb-4'>
-              {data.Ratings[0].Value}
+              {data.Ratings[0]?.Value || 'N/A'}
             </p>
           </div>
         </div>

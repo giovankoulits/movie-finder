@@ -4,7 +4,7 @@
 
 form {
   margin-bottom: 5vh;
-  width: 93% !important;
+  width: 95% !important;
 }
 
 form input {
@@ -33,14 +33,8 @@ form input {
   border-radius: 0px !important;
 }
 
-@media only screen and (max-width: 1200px) {
+@media only screen and (max-width: 992px) {
   form {
-    width: 75% !important;
-  }
-}
-
-@media only screen and (max-width: 768px) {
-  form {
-    width: 100% !important;
+    width: 90%;
   }
 }
