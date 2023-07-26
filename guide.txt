@@ -46,8 +46,6 @@ Infinite Scroll
 6.	If no data there is no scroll on page. Component height smaller than page height. 
 7.	If there is data in Movies measure if scroll height equal to window height. If yes (scrolled to bottom) fetch again and increment currentPage state by one. If currentPage equal to numberOfPages do nothing (end of results).
 
-
-
 Favorites
 1.	Set state according to local storage. 
 2.	Loop through storage and display Card for each storage item. 

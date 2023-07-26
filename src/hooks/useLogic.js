@@ -46,7 +46,6 @@ const useLogic = () => {
     //Create storage if none exists
     if (!localStorage.getItem('movies')) {
       favoritesArray = [movie];
-      console.log(favoritesArray);
       localStorage.setItem('movies', JSON.parse(favoritesArray));
     }
 

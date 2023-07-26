@@ -22,7 +22,7 @@ const Button = ({ addFavorite, movie, deleteFavorite }) => {
         >
           <img
             style={{ width: '22px' }}
-            src={favorite ? heartSolid : heart}
+            src={isfavorite ? heartSolid : heart}
             alt='heart-icon'
           />
         </div>
