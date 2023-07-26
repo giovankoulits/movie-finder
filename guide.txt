@@ -1,3 +1,4 @@
+Thought Process
 Beginning
 1.	Use create-react-app to scaffold the project
 2.	Register to the OMDB API to get unique key
@@ -44,6 +45,8 @@ Infinite Scroll
 5.	Add new useEffect to Movies. Add event listener to useEffect. Add current page as dependency
 6.	If no data there is no scroll on page. Component height smaller than page height. 
 7.	If there is data in Movies measure if scroll height equal to window height. If yes (scrolled to bottom) fetch again and increment currentPage state by one. If currentPage equal to numberOfPages do nothing (end of results).
+
+
 
 Favorites
 1.	Set state according to local storage. 
