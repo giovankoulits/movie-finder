@@ -1,0 +1,67 @@
+Beginning
+1.	Use create-react-app to scaffold the project
+2.	Register to the OMDB API to get unique key
+3.	Use the same colors as IMDB (black and gold) for the project.
+4.	Neutral font for text items (Poppins).
+5.	Import Bootstrap for styling and positioning
+6.	Make calls to the api with fetch and get data for testing
+7.	Hard code a url to fetch an array of items from the api.
+8.	Download button icons from Flaticon (free to use).
+
+Components
+1.	Fetch hard-coded url on page load with useEffect hook
+2.	Make a Movies component to display the response array
+3.	Set state for Movies (response array)
+4.	Create a Card Component 
+5.	Loop through movies state (response array) and display a Card component for each array item.
+6.	Pass props to Card (movie data) via Movies state
+7.	Create state (form data) in Movies Component
+8.	Create a Form Component (Search) and put it in Movies Component
+9.	Pass a handleForm function from Movies to Form and create state (title, year, type) for Form component.
+10.	 Add inputs to Form: Year, Type and search. Update Form state on input change
+11.	 Send Form state to Movies on submit (via handleForm function). If no title provided alert no title.  Update form data state accordingly.
+12.	 Update hard coded fetch url in Movies to template string. Pass form data state (year, type, title) as url parameters. If error response alert no results.
+13.	 Add form data dependency to useEffect to run on each form submission. 
+14.	 Create addFavorite function in Movies and pass it to Card via props
+15.	 Add button component to Card and run addFavorite on click 
+16.	 Set local storage to an array. Push Card data to local storage on click (addFavorite).
+17.	 Creata a Favorites Component
+18.	 Create a Movie Component
+19.	 Add router Link to Movie on each Card Element
+
+Router
+1.	Install react router and add Routes and Links for Movies Favorites and Movie
+2.	Add id parameter to Router for Movie Route 
+3.	Add id parameter to Router Link on Card. Display Movie according to id parameter on card click.
+4.	Pass the Card State (movie data) to Movie component via the router state prop.
+5.	Add the useLocation Router hook to Movie to  get the Card state and fetch data according to Imdb.ID. Display data.
+
+Infinite Scroll
+1.	Add numberOfPages state to Movies. Update according to response results. Divide by ten to get number of pages.
+2.	Add currentPage state and set to 1 as default.
+3.	Pass currentPage to response url.
+4.	Add handleScroll function to Movies. 
+5.	Add new useEffect to Movies. Add event listener to useEffect. Add current page as dependency
+6.	If no data there is no scroll on page. Component height smaller than page height. 
+7.	If there is data in Movies measure if scroll height equal to window height. If yes (scrolled to bottom) fetch again and increment currentPage state by one. If currentPage equal to numberOfPages do nothing (end of results).
+
+Favorites
+1.	Set state according to local storage. 
+2.	Loop through storage and display Card for each storage item. 
+3.	Create deleteFav function and pass it to button via props.
+4.	Button accepts either addFavorite (passed from Movies) or deleteFav (passed from Favorites).
+5.	deleteFav loops through storage and if it finds the Card.id is equal to a storage item ID it deletes the item from storage.
+
+Finalization
+1.	Use optional chaining to avoid breaking errors if fetch response on Movie component does not have a piece of data. E.g. rating or cast.
+2.	Add functionality to delete favorite from Movies page. Not only from Favorites page.
+3.	Display solid heart button or border heart button depending on local storage.
+
+Installation
+1.	Download code from github: https://github.com/giovankoulits/movie-finder
+2.	Navigate to folder on the console and run <npm install> to download dependencies
+3.	Run <npm start> and the project will be live on http://localhost:3000
+
+
+
+
