@@ -1,13 +1,15 @@
 import Card from '../components/Card/Card';
+import Spinner from '../components/Spinner/Spinner';
 import { useState, useEffect } from 'react';
 import SearchForm from '../components/Search/SearchForm';
-
+import './Movies.css';
 const Movies = () => {
   //State
   const [formData, setFormData] = useState('');
   const [movies, setMovies] = useState([]);
-  const [numOfPages, setNumOfPages] = useState(5);
+  const [numOfPages, setNumOfPages] = useState(2);
   const [currentPage, setCurrentPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   //Logic
   function submitForm(data) {
@@ -15,6 +17,11 @@ const Movies = () => {
       alert('please provide a movie title');
       return;
     }
+    //Reset states in case of new search
+    setMovies([]);
+    setCurrentPage(1);
+    setNumOfPages(2);
+    //send new form request
     setFormData(data);
   }
 
@@ -22,10 +29,10 @@ const Movies = () => {
     const moviesURL = await fetch(url);
     const res = await moviesURL.json();
     //Search is returned by  successful requests
+
     if (res.Search) {
       setNumOfPages(Math.ceil(parseInt(res.totalResults) / 10));
-      console.log(res.totalResults);
-      if (currentPage < numOfPages) {
+      if (currentPage <= numOfPages) {
         setMovies((prev) => [...prev, ...res.Search]);
         return;
       }
@@ -41,6 +48,7 @@ const Movies = () => {
 
   function addFavorite(movie) {
     let favoritesArray;
+    //Create storage if none exists
     if (!localStorage.getItem('movies')) {
       favoritesArray = [movie];
       localStorage.setItem('movies', JSON.stringify(favoritesArray));
@@ -51,27 +59,30 @@ const Movies = () => {
       return;
     }
     favoritesArray.push(movie);
+    //Save favoriters to local storage
     localStorage.setItem('movies', JSON.stringify(favoritesArray));
   }
 
-  //Fetch according to search
+  //Lazy Load/infinite Scroll
+  function handleScroll() {
+    let scrollHeight =
+      window.innerHeight + document.documentElement.scrollTop + 1 >=
+      document.documentElement.scrollHeight;
+    if (scrollHeight && currentPage < numOfPages) {
+      setCurrentPage((prev) => prev + 1);
+    }
+  }
+
+  //Fetch by Search
   useEffect(() => {
     if (currentPage < numOfPages)
       getMovies(
         `http://www.omdbapi.com/?s=${formData.title}&y=${formData.year}&type=${formData.type}&page=${currentPage}&apikey=40f50920`
       );
+    console.log(currentPage, numOfPages);
   }, [formData, currentPage]);
 
-  function handleScroll() {
-    if (
-      window.innerHeight + document.documentElement.scrollTop + 1 >=
-      document.documentElement.scrollHeight
-    ) {
-      setCurrentPage((prev) => prev + 1);
-    }
-  }
-
-  //Listen for Scroll
+  //Listen for Scroll Event
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
@@ -88,6 +99,7 @@ const Movies = () => {
             <Card key={i} addFavorite={addFavorite} movie={movie} index={i} />
           ))}
       </div>
+      {loading && <Spinner />}
     </>
   );
 };

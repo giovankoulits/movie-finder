@@ -5,7 +5,7 @@ import './Movie.css';
 const Movie = () => {
   const [data, setData] = useState('');
 
-  //Fetch according to Movie ID
+  //Fetch by ID
   useEffect(() => {
     fetch(
       `http://www.omdbapi.com/?i=${location.state.imdbID}&plot=full&apikey=40f50920`
