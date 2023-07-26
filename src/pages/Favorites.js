@@ -14,7 +14,7 @@ const Favorites = () => {
   }
 
   return (
-    <div className='row gy-2 gx-2 d-flex flex-wrap justify-content-center my-5'>
+    <div className='row gy-2 gx-2 d-flex flex-wrap justify-content-start my-5'>
       {favorites &&
         favorites.map((movie, i) => (
           <Card

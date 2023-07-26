@@ -15,7 +15,7 @@ const Movies = () => {
       <div className='px-2 row d-flex justify-content-center  px-md-4'>
         <SearchForm handleSubmit={submitForm} />
       </div>
-      <div className='row gy-2 gx-2 d-flex flex-wrap justify-content-center'>
+      <div className='row gy-2 gx-2 d-flex flex-wrap justify-content-start'>
         {movies &&
           movies.map((movie, i) => (
             <Card
