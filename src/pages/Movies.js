@@ -1,6 +1,7 @@
 //Components
 import Card from '../components/Card/Card';
 import SearchForm from '../components/Search/SearchForm';
+import Spinner from '../components/Spinner/Spinner';
 //custom Hook
 import useLogic from '../hooks/useLogic.js';
 //Dependencies
@@ -9,12 +10,13 @@ import { nanoid } from 'nanoid';
 import './Movies.css';
 
 const Movies = () => {
-  const { addFavorite, submitForm, movies } = useLogic();
+  const { addFavorite, submitForm, movies, isLoading } = useLogic();
   return (
     <>
       <div className='px-2 row d-flex justify-content-center  px-md-4'>
         <SearchForm handleSubmit={submitForm} />
       </div>
+
       <div className='row gy-2 gx-2 d-flex flex-wrap justify-content-start'>
         {movies &&
           movies.map((movie, i) => (
@@ -26,6 +28,7 @@ const Movies = () => {
             />
           ))}
       </div>
+      {isLoading && <Spinner />}
     </>
   );
 };

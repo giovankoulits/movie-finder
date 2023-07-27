@@ -6,6 +6,7 @@ const useLogic = () => {
   const [movies, setMovies] = useState([]);
   const [numOfPages, setNumOfPages] = useState(2);
   const [currentPage, setCurrentPage] = useState(1);
+  const [isLoading, setIsLoading] = useState(false);
 
   const submitForm = (data) => {
     if (!data.title.length) {
@@ -21,9 +22,11 @@ const useLogic = () => {
   };
 
   const getMovies = async (url) => {
+    setIsLoading(true);
     const moviesURL = await fetch(url);
     const res = await moviesURL.json();
     //Search is returned by  successful requests
+    setIsLoading(false);
 
     if (res.Search) {
       setNumOfPages(Math.ceil(parseInt(res.totalResults) / 10));
@@ -90,7 +93,7 @@ const useLogic = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  return { addFavorite, submitForm, movies };
+  return { addFavorite, submitForm, movies, isLoading };
 };
 
 export default useLogic;
