@@ -2,15 +2,13 @@
 import Card from '../components/Card/Card';
 import SearchForm from '../components/Search/SearchForm';
 import Spinner from '../components/Spinner/Spinner';
-//custom Hook
-import useLogic from '../hooks/useLogic.js';
+
 //Dependencies
 import { nanoid } from 'nanoid';
 //Styles
 import './Movies.css';
 
-const Movies = () => {
-  const { addFavorite, submitForm, movies, isLoading } = useLogic();
+const Movies = ({ handleFavorite, submitForm, movies, isLoading }) => {
   return (
     <>
       <div className='px-2 row d-flex justify-content-center  px-md-4'>
@@ -22,7 +20,7 @@ const Movies = () => {
           movies.map((movie, i) => (
             <Card
               key={nanoid()}
-              addFavorite={addFavorite}
+              handleFavorite={handleFavorite}
               movie={movie}
               index={i}
             />

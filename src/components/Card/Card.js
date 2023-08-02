@@ -8,7 +8,7 @@ import unavailable from '../../assets/unavailable.png';
 //Styles
 import './Card.css';
 
-const Card = ({ movie, index, addFavorite, deleteFavorite }) => {
+const Card = ({ movie, index, handleFavorite, deleteFavorite }) => {
   const poster = movie.Poster === 'N/A' ? unavailable : movie.Poster;
 
   return (
@@ -17,7 +17,7 @@ const Card = ({ movie, index, addFavorite, deleteFavorite }) => {
         <img src={poster} alt={movie.Title} draggable='false' />
         <div className='my-info'>
           <Button
-            addFavorite={addFavorite}
+            handleFavorite={handleFavorite}
             movie={movie}
             deleteFavorite={deleteFavorite}
           />

@@ -1,6 +1,5 @@
 //Hooks
-import { useState, useEffect } from 'react';
-
+import { useState, useEffect, useContext } from 'react';
 const useLogic = () => {
   const [formData, setFormData] = useState('');
   const [movies, setMovies] = useState([]);
@@ -44,7 +43,7 @@ const useLogic = () => {
     }
   };
 
-  const addFavorite = (movie) => {
+  const handleFavorite = (movie) => {
     let favoritesArray;
     //Create storage if none exists
     if (!localStorage.getItem('movies')) {
@@ -93,7 +92,12 @@ const useLogic = () => {
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
-  return { addFavorite, submitForm, movies, isLoading };
+  return {
+    handleFavorite,
+    submitForm,
+    movies,
+    isLoading,
+  };
 };
 
 export default useLogic;
