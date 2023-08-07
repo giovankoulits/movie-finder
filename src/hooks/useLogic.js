@@ -78,7 +78,7 @@ const useLogic = () => {
   useEffect(() => {
     if (currentPage < numOfPages)
       getMovies(
-        `http://www.omdbapi.com/?s=${formData.title}&y=${formData.year}&type=${formData.type}&page=${currentPage}&apikey=40f50920`
+        `https://www.omdbapi.com/?s=${formData.title}&y=${formData.year}&type=${formData.type}&page=${currentPage}&apikey=${process.env.REACT_APP_API_KEY}`
       );
   }, [formData, currentPage]);
 

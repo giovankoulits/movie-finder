@@ -11,13 +11,12 @@ const Movie = () => {
   //Fetch by ID
   useEffect(() => {
     fetch(
-      `http://www.omdbapi.com/?i=${location.state.imdbID}&plot=full&apikey=40f50920`
+      `https://www.omdbapi.com/?i=${location.state.imdbID}&plot=full&apikey=${process.env.REACT_APP_API_KEY}`
     )
       .then((res) => res.json())
       .then((movie) => setData(movie))
       .then((end) => setLoading(false));
   }, [location]);
-
   return loading ? (
     <div className='row d-flex justify-content-center'>
       <Spinner />

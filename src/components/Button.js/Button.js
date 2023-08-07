@@ -7,7 +7,7 @@ import './Button.css';
 
 const Button = ({ handleFavorite, movie, deleteFavorite }) => {
   let storage = JSON.parse(localStorage.getItem('movies'));
-  if ((storage = '[]')) {
+  if (storage === '[]') {
     storage = [];
   }
   let favorite = storage?.some((item) => item.imdbID === movie.imdbID);
