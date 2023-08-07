@@ -18,7 +18,7 @@ const RootLayout = () => {
               src={videoPlayer}
               alt='video-player'
             />{' '}
-            Movie FInder
+            Movie FInders
           </h1>
         </header>
         <main>
