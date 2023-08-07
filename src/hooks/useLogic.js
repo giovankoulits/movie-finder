@@ -44,15 +44,11 @@ const useLogic = () => {
   };
 
   const handleFavorite = (movie) => {
-    let favoritesArray;
-    //Create storage if none exists
-    if (!localStorage.getItem('movies')) {
-      favoritesArray = [movie];
-      localStorage.setItem('movies', JSON.parse(favoritesArray));
-    }
-
-    favoritesArray = JSON.parse(localStorage.getItem('movies'));
+    let favoritesArray = JSON.parse(localStorage.getItem('movies'));
     //Remove Item
+    if (favoritesArray === '[]') {
+      favoritesArray = [];
+    }
     if (favoritesArray.some((fav) => fav.imdbID === movie.imdbID)) {
       let movieIndex;
       favoritesArray.forEach((fav, index) =>
@@ -90,6 +86,12 @@ const useLogic = () => {
   useEffect(() => {
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  useEffect(() => {
+    if (!localStorage.getItem('movies')) {
+      localStorage.setItem('movies', JSON.stringify([]));
+    }
   }, []);
 
   return {

@@ -5,18 +5,21 @@ import { useState } from 'react';
 
 import './Button.css';
 
-const Button = ({ addFavorite, movie, deleteFavorite }) => {
+const Button = ({ handleFavorite, movie, deleteFavorite }) => {
   let storage = JSON.parse(localStorage.getItem('movies'));
+  if ((storage = '[]')) {
+    storage = [];
+  }
   let favorite = storage?.some((item) => item.imdbID === movie.imdbID);
   const [isfavorite, setIsFavorite] = useState(favorite);
 
   return (
     <>
-      {addFavorite ? (
+      {handleFavorite ? (
         <div
           onClick={() => {
             setIsFavorite((prev) => !prev);
-            addFavorite(movie);
+            handleFavorite(movie);
           }}
           className='heart-btn'
         >
