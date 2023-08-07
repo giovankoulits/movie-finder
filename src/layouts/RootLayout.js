@@ -17,8 +17,8 @@ const RootLayout = () => {
               style={{ width: '40px', position: 'relative', top: '-6px' }}
               src={videoPlayer}
               alt='video-player'
-            />{' '}
-            Movie FInderss
+            />
+            Movie FInder
           </h1>
         </header>
         <main>
